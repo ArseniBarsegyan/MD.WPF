@@ -8,8 +8,13 @@ namespace MyDiary.WPF.Models
     /// </summary>
     public class Note : Entity
     {
+        public Note()
+        {
+            Photos = new List<Photo>();
+        }
+
         public string Description { get; set; }
         public DateTime Date { get; set; }
-        public IEnumerable<Photo> Photos { get; set; }
+        public virtual ICollection<Photo> Photos { get; set; }
     }
 }

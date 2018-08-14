@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MyDiary.WPF.Extensions;
+using MyDiary.WPF.Pages;
 
 namespace MyDiary.WPF
 {
@@ -22,17 +24,15 @@ namespace MyDiary.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IRepository<Note> _noteRepository;
-
         public MainWindow()
         {
             InitializeComponent();
-            _noteRepository = new NoteRepository(new ApplicationContext("DefaultConnection"));
-            NotesList.ItemsSource = _noteRepository.GetAll().ToList();
         }
 
-        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        private void AddNoteButton_OnClick(object sender, RoutedEventArgs e)
         {
+            var createNoteWindow = new CreateNoteWindow();
+            createNoteWindow.Show();
         }
     }
 }

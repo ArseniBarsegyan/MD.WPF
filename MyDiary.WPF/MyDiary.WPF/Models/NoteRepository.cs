@@ -10,10 +10,10 @@ namespace MyDiary.WPF.Models
     /// </summary>
     public class NoteRepository : IDisposable, IRepository<Note>
     {
-        private readonly DbContext _dbContext;
+        private readonly ApplicationContext _dbContext;
         private bool _disposed;
 
-        public NoteRepository(DbContext dbContext)
+        public NoteRepository(ApplicationContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -22,12 +22,13 @@ namespace MyDiary.WPF.Models
 
         public IQueryable<Note> GetAll()
         {
-            return DbSet;
+            return DbSet.Include(x => x.Photos);
         }
 
         public async Task<Note> GetByIdAsync(int? id)
         {
-            return await DbSet.FirstOrDefaultAsync(x => x.Id == id);
+            var note = await DbSet.FirstOrDefaultAsync(x => x.Id == id);
+            return note;
         }
 
         public void Create(Note item)
