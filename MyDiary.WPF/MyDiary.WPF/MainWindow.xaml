@@ -3,10 +3,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MyDiary.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ControlTemplate TargetType="Button" x:Key="roundButtonTemplate">
+            <Border CornerRadius="25" BorderBrush="CadetBlue" BorderThickness="2"
+                    Background="LightBlue" Height="40" Width="40" >
+                <ContentControl Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Content="+" />
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Button Panel.ZIndex="2"
+                Grid.Row="1" 
+                Grid.Column="2" 
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                x:Name="CreateButton" 
+                Template="{StaticResource roundButtonTemplate}"
+                Click="CreateButton_Click">
+        </Button>
     </Grid>
 </Window>

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MyDiary.WPF.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,17 @@ namespace MyDiary.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        ApplicationContext _context;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            _context = new ApplicationContext("DefaultConnection");
+        }
+
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
