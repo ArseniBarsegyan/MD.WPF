@@ -22,13 +22,13 @@ namespace MyDiary.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        ApplicationContext _context;
+        private IRepository<Note> _noteRepository;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            _context = new ApplicationContext("DefaultConnection");
+            _noteRepository = new NoteRepository(new ApplicationContext("DefaultConnection"));
+            NotesList.ItemsSource = _noteRepository.GetAll().ToList();
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)

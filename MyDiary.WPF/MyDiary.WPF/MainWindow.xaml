@@ -24,6 +24,15 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <ListView Name="NotesList">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Description}">Description</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Date}">Date</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
         <Button Panel.ZIndex="2"
                 Grid.Row="1" 
                 Grid.Column="2" 
