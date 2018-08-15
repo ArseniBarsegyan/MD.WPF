@@ -22,7 +22,7 @@ namespace MyDiary.WPF.Models
 
         public IQueryable<Note> GetAll()
         {
-            return DbSet.Include(x => x.Photos);
+            return DbSet;
         }
 
         public async Task<Note> GetByIdAsync(int? id)
