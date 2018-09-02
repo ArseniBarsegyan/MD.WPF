@@ -1,8 +1,10 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using MyDiary.WPF.Commands;
 using MyDiary.WPF.Helpers;
 using MyDiary.WPF.Models;
+using MyDiary.WPF.Pages;
 using MyDiary.WPF.Properties;
 
 namespace MyDiary.WPF.ViewModels
@@ -30,10 +32,13 @@ namespace MyDiary.WPF.ViewModels
             get
             {
                 return _loginCommand ??
-                       (_loginCommand = new RestClientCommand(async (param) =>
+                       (_loginCommand = new RestClientCommand(async (parameter) =>
                        {
-                           var passwordBox = param as PasswordBox;
+                           var values = (object[])parameter;
+                           var passwordBox = values.ElementAt(0) as PasswordBox;
                            var password = passwordBox?.Password;
+
+                           var loginWindow = values.ElementAt(1) as LoginWindow;
 
                            if (string.IsNullOrWhiteSpace(Email))
                            {
@@ -63,8 +68,10 @@ namespace MyDiary.WPF.ViewModels
                                ErrorMessage = string.Empty;
                                Settings.Default.UserName = Email;
                                Settings.Default.IsUserLogin = true;
+                               
                                var mainWindow = new MainWindow();
                                mainWindow.Show();
+                               loginWindow?.Close();
                            }
                        }));
             }
