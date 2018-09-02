@@ -27,6 +27,7 @@ namespace MyDiary.WPF
         public MainWindow()
         {
             InitializeComponent();
+            ViewModel.GetNotesCommand.Execute(null);
         }
 
         private void AddNoteButton_OnClick(object sender, RoutedEventArgs e)

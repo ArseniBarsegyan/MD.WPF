@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace MyDiary.WPF.Models
 {
-    /// <summary>
-    /// Notes table in database.
-    /// </summary>
     public class Note : Entity
     {
-        public Note()
-        {
-            Photos = new List<Photo>();
-        }
-
+        [JsonProperty("description")]
         public string Description { get; set; }
+
+        [JsonProperty("date")]
         public DateTime Date { get; set; }
-        public virtual ICollection<Photo> Photos { get; set; }
+
+        [JsonProperty("photos")]
+        public List<Photo> Photos { get; set; }
+
+        [JsonIgnore]
+        public string UserId { get; set; }
+
+        [JsonIgnore]
+        public AppUser User { get; set; }
     }
 }

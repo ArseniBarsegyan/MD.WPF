@@ -2,12 +2,19 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using MyDiary.WPF.Annotations;
+using MyDiary.WPF.Services;
 
 namespace MyDiary.WPF.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        protected readonly ServiceClient ServiceClient;
+
+        public BaseViewModel()
+        {
+            ServiceClient = ServiceClient.GetInstance();
+        }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

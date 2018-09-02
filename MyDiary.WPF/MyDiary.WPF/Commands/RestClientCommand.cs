@@ -3,15 +3,15 @@ using System.Windows.Input;
 
 namespace MyDiary.WPF.Commands
 {
-    public class RepositoryCommand : ICommand
+    public class RestClientCommand : ICommand
     {
-        private Action<object> _execute;
-        private Func<object, bool> _canExecute;
+        private readonly Action<object> _execute;
+        private readonly Func<object, bool> _canExecute;
 
-        public RepositoryCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        public RestClientCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
-            this._execute = execute;
-            this._canExecute = canExecute;
+            _execute = execute;
+            _canExecute = canExecute;
         }
 
         public event EventHandler CanExecuteChanged

@@ -1,21 +1,13 @@
 ﻿using System.Collections.ObjectModel;
-using System.Data.Entity;
 using MyDiary.WPF.Commands;
 using MyDiary.WPF.Extensions;
-using MyDiary.WPF.Models;
 
 namespace MyDiary.WPF.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-        private readonly IRepository<Note> _noteRepository;
-        private RepositoryCommand _getNotesCommand;
+        private RestClientCommand _getNotesCommand;
         private ObservableCollection<NoteViewModel> _notes;
-
-        public MainPageViewModel()
-        {
-            _noteRepository = new NoteRepository(new ApplicationContext("DefaultConnection"));
-        }
 
         public ObservableCollection<NoteViewModel> Notes
         {
@@ -23,14 +15,14 @@ namespace MyDiary.WPF.ViewModels
             set => SetValue(ref _notes, value, nameof(Notes));
         }
 
-        public RepositoryCommand GetNotesCommand
+        public RestClientCommand GetNotesCommand
         {
             get
             {
                 return _getNotesCommand ??
-                       (_getNotesCommand = new RepositoryCommand(async obj =>
+                       (_getNotesCommand = new RestClientCommand(async obj =>
                        {
-                           var allNotes = await _noteRepository.GetAll().ToListAsync();
+                           var allNotes = await ServiceClient.GetNotesAsync();
                            var viewModels = allNotes.ToNoteViewModels();
                            Notes = new ObservableCollection<NoteViewModel>(viewModels);
                        }));

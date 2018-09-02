@@ -1,14 +1,19 @@
-﻿namespace MyDiary.WPF.Models
+﻿using Newtonsoft.Json;
+
+namespace MyDiary.WPF.Models
 {
-    /// <summary>
-    /// Photos table in database.
-    /// </summary>
     public class Photo : Entity
     {
+        [JsonProperty("name")]
         public string Name { get; set; }
-        public string Image { get; set; }
 
+        [JsonProperty("noteId")]
         public int NoteId { get; set; }
-        public virtual Note Note { get; set; }
+
+        [JsonIgnore]
+        public Note Note { get; set; }
+
+        [JsonProperty("image")]
+        public string Image { get; set; }
     }
 }

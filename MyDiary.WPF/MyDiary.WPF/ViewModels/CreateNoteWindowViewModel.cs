@@ -1,19 +1,12 @@
 ﻿using MyDiary.WPF.Commands;
 using MyDiary.WPF.Extensions;
-using MyDiary.WPF.Models;
 
 namespace MyDiary.WPF.ViewModels
 {
     public class CreateNoteWindowViewModel : BaseViewModel
     {
-        private readonly IRepository<Note> _noteRepository;
-        private RepositoryCommand _getNotesCommand;
+        private RestClientCommand _createNoteCommand;
         private NoteViewModel _noteViewModel;
-
-        public CreateNoteWindowViewModel()
-        {
-            _noteRepository = new NoteRepository(new ApplicationContext("DefaultConnection"));
-        }
 
         public NoteViewModel NoteViewModel
         {
@@ -21,17 +14,16 @@ namespace MyDiary.WPF.ViewModels
             set => SetValue(ref _noteViewModel, value, nameof(NoteViewModel));
         }
 
-        public RepositoryCommand CreateNoteCommand
+        public RestClientCommand CreateNoteCommand
         {
             get
             {
-                return _getNotesCommand ??
-                       (_getNotesCommand = new RepositoryCommand(async obj =>
+                return _createNoteCommand ??
+                       (_createNoteCommand = new RestClientCommand(async obj =>
                        {
                            if (_noteViewModel == null)
                                return;
-                            _noteRepository.Create(NoteViewModel.ToNoteModel());
-                           await _noteRepository.SaveAsync();
+                           await ServiceClient.CreateNote(NoteViewModel.ToNoteModel());
                        }));
             }
         }
