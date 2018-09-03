@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 using MyDiary.WPF.Commands;
 using MyDiary.WPF.Helpers;
@@ -14,6 +13,14 @@ namespace MyDiary.WPF.ViewModels
         private RestClientCommand _loginCommand;
         private string _email;
         private string _errorMessage;
+
+        public LoginViewModel()
+        {
+            if (!string.IsNullOrEmpty(Settings.Default.UserName))
+            {
+                Email = Settings.Default.UserName;
+            }            
+        }
 
         public string Email
         {
@@ -61,7 +68,7 @@ namespace MyDiary.WPF.ViewModels
 
                            if (string.IsNullOrEmpty(Settings.Default.Token))
                            {
-                               ErrorMessage = ConstantsHelper.NotRegisteredError;
+                               ErrorMessage = ConstantsHelper.NotRegisteredOrPasswordIncorrectError;
                            }
                            else
                            {

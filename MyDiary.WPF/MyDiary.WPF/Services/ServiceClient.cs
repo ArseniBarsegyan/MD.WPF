@@ -18,7 +18,8 @@ namespace MyDiary.WPF.Services
     {
         private static ServiceClient _instance;
         private readonly HttpClient _httpClient = new HttpClient();
-        private const string BaseUrl = "http://192.168.100.98:51870";
+        // private const string BaseUrl = "http://192.168.100.98:51870";
+        private const string BaseUrl = "http://10.132.34.144:51870";
 
         private ServiceClient() {}
 
